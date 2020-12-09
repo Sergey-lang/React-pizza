@@ -1,7 +1,12 @@
 import './App.css'
-import {Header} from './u4-features/Header'
+import {Categories, Header} from './u3-components'
+import React from 'react'
+
 
 function App() {
+
+   const items = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
+
    return (
        <div className="App">
           <div className="wrapper">
@@ -9,16 +14,9 @@ function App() {
              <div className="content">
                 <div className="container">
                    <div className="content__top">
-                      <div className="categories">
-                         <ul>
-                            <li className="active">Все</li>
-                            <li>Мясные</li>
-                            <li>Вегетарианская</li>
-                            <li>Гриль</li>
-                            <li>Острые</li>
-                            <li>Закрытые</li>
-                         </ul>
-                      </div>
+                      <Categories items={items}
+                                  onClickItem={(name) => console.log(name)}
+                      />
                       <div className="sort">
                          <div className="sort__label">
                             <svg
