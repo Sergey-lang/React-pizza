@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Categories = ({items, onClickItem}) => {
+const Categories = ({items, onClickItem}) => {
 
    let [activeItem, setActiveItem] = React.useState(null)
 
@@ -25,6 +25,8 @@ export const Categories = ({items, onClickItem}) => {
        </div>
    )
 }
+
+export default Categories
 
 
 // export class Categories extends React.Component {

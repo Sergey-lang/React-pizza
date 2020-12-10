@@ -1,7 +1,6 @@
-import {Categories} from './Categories/Categories'
-import {Header} from '../u4-features/Header'
-import {Button} from './Button/Button'
+export {default as Button} from './Button/Button'
+export {default as Categories} from './Categories/Categories'
+export {default as SortPopup} from './SortPopup/SortPopup'
 
-export {Button,Header,Categories}
 
 
