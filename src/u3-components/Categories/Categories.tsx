@@ -1,14 +1,19 @@
-import React from 'react'
+import * as React from 'react'
 
-const Categories = ({items, onClickItem}) => {
+type CategoriesProps = {
+   types: string[]
+   onClickItem?: (name: string) => void
+}
 
-   let [activeItem, setActiveItem] = React.useState(null)
+const Categories: React.FC<CategoriesProps> = ({types, onClickItem}) => {
 
-   const onSelectItem = (index) => {
+   let [activeItem, setActiveItem] = React.useState<number | null>(null)
+
+   const onSelectItem = (index: number | null) => {
       setActiveItem(index)
    }
 
-   const categoriesArray = items && items
+   const categoriesArray = types && types
        .map((name, index) => (
            <li key={`${name}_${index}`}
                onClick={() => onSelectItem(index)}
@@ -19,7 +24,8 @@ const Categories = ({items, onClickItem}) => {
        <div className="categories">
           <ul>
              <li className={activeItem === null ? 'active' : ''}
-                 onClick={() => onSelectItem(null)}>Все</li>
+                 onClick={() => onSelectItem(null)}>Все
+             </li>
              {categoriesArray}
           </ul>
        </div>
