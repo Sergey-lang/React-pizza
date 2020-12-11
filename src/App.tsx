@@ -1,13 +1,13 @@
 import * as React from 'react'
-
+import axios from 'axios'
 import {Route} from 'react-router-dom'
 
 import './App.css'
 
 import {Home, Cart, Header} from './u5-pages'
 
+//types
 type Rating = 1 | 2 | 3 | 5 | 6 | 7 | 8 | 9 | 10
-
 export type PizzaType = {
    id: number
    imageUrl: string
@@ -18,16 +18,18 @@ export type PizzaType = {
    category: number
    rating: Rating
 }
+type GetPizzasResponse = {
+   pizzas: PizzaType[]
+}
 
 const App: React.FC = () => {
 
    const [pizzas, setPizzas] = React.useState<Array<PizzaType>>([])
 
    React.useEffect(() => {
-      fetch('http://localhost:3001/db.json')
-          .then((res) => res.json())
-          .then((json) => {
-             setPizzas(json.pizzas)
+      axios.get<GetPizzasResponse>('http://localhost:3001/db.json')
+          .then(({data}) => {
+             setPizzas(data.pizzas)
           })
    }, [])
 

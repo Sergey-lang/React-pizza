@@ -2,10 +2,10 @@ import * as React from 'react'
 import classNames from 'classnames'
 import {PizzaType} from '../../App'
 
-const PizzaBlock: React.FC<PizzaType> = ({imageUrl, name, price, types, sizes}) => {
+const PizzaBlock: React.FC<PizzaType> = ({imageUrl, name = '----', price = 0, types = [], sizes = []}) => {
 
-   const availableTypes = ['тонкое', 'традиционнное']
-   const availableSizes = [26, 30, 40]
+   const availableTypes: string[] = ['тонкое', 'традиционнное']
+   const availableSizes: number[] = [26, 30, 40]
 
    const [activeType, setActiveType] = React.useState<number>(types[0])
    const [activeSize, setActiveSize] = React.useState<number>(sizes[0])

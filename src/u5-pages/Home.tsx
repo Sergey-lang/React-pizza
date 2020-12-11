@@ -9,10 +9,10 @@ type HomeProps = {
 
 const Home:React.FC<HomeProps> = ({items}) => {
 
-   const types = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
-   const filterItems = ['популярности', 'цене', 'алфавиту']
+   const types: string[] = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
+   const filterItems: string[] = ['популярности', 'цене', 'алфавиту']
 
-   const mappedPizza: any[] = items.map(obj => <PizzaBlock key={obj.id} {...obj}/>)
+   const mappedPizza = items.map(obj => <PizzaBlock key={obj.id} {...obj}/>)
 
    return (
        <div className="container">
