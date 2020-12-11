@@ -7,10 +7,18 @@ type HomeProps = {
    items: PizzaType[]
 }
 
-const Home:React.FC<HomeProps> = ({items}) => {
+export type FilterItems = {
+   name: 'популярности' | 'цене' | 'алфавиту'
+   type: 'popular' | 'price' | 'alphabet'
+}
+
+const Home: React.FC<HomeProps> = ({items}) => {
 
    const types: string[] = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
-   const filterItems: string[] = ['популярности', 'цене', 'алфавиту']
+   const filterItems: FilterItems[] = [
+      {name: 'популярности', type: 'popular'},
+      {name: 'цене', type: 'price'},
+      {name: 'алфавиту', type: 'alphabet'}]
 
    const mappedPizza = items.map(obj => <PizzaBlock key={obj.id} {...obj}/>)
 

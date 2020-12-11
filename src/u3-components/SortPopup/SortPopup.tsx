@@ -1,7 +1,8 @@
 import * as React from 'react'
+import {FilterItems} from '../../u5-pages/Home'
 
 type SortPopupProps = {
-   filterItems: Array<string>
+   filterItems: FilterItems[]
    onClickFilter?: (name: string) => void
 }
 
@@ -18,7 +19,7 @@ const SortPopup: React.FC<SortPopupProps> = ({filterItems, onClickFilter}) => {
       setActiveFilter(index)
       setVisiblePopup(false)
    }
-   const activeFilterName = filterItems[activeFilter]
+   const activeFilterName = filterItems[activeFilter].name
 
 //check
    const handleOutsideClick = (ev: any) => {
@@ -51,11 +52,11 @@ const SortPopup: React.FC<SortPopupProps> = ({filterItems, onClickFilter}) => {
           </div>
           {visiblePopup && <div className="sort__popup">
              <ul>
-                {filterItems && filterItems.map((filter, i) => (
-                    <li key={`${filter}_${i}`}
+                {filterItems && filterItems.map((obj, i) => (
+                    <li key={`${obj.type}_${i}`}
                         className={activeFilter === i ? 'active' : ''}
                         onClick={() => onSelectFilter(i)}>
-                       {filter}
+                       {obj.name}
                     </li>))}
              </ul>
           </div>}
