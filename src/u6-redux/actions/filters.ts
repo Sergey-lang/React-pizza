@@ -8,7 +8,7 @@ export const setSortBy = (name: string) => ({
    payload: name,
 } as const)
 
-export const setCategory = (catIndex: FilterItems) => ({
+export const setCategory = (catIndex: number | null) => ({
    type: 'filters/SET_CATEGORY',
    payload: catIndex,
 } as const)
