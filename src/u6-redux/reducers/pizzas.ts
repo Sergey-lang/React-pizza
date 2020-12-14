@@ -1,4 +1,3 @@
-import {FiltersActionsType} from '../actions/filters'
 import {PizzasActionsType} from '../actions/pizzas'
 import {PizzaType} from '../../App'
 
@@ -17,6 +16,12 @@ export const pizzasReducer = (state: PizzasInitialState = initializeState, actio
       case 'pizzas/SET_PIZZAS': {
          return {
             ...state, items: action.payload,
+            isLoaded: true
+         }
+      }
+      case 'pizzas/SET_LOADED': {
+         return {
+            ...state, isLoaded: action.payload
          }
       }
       default:

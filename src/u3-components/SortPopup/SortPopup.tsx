@@ -1,25 +1,28 @@
 import * as React from 'react'
-import {FilterItems} from '../../u5-pages/Home'
+import {SortByType, FilterType} from '../../u5-pages/Home'
 
-type SortPopupProps = {
-   filterItems: FilterItems[]
-   onClickFilter?: (name: string) => void
-}
+const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, activeSortType, onClickSortType}) => {
 
-const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, onClickFilter}) => {
-   console.log('RERENDER SortPopup')
+   React.useEffect(() => {
+      document.addEventListener('click', handleOutsideClick)
+   }, [])
+
    let [visiblePopup, setVisiblePopup] = React.useState(false)
-   let [activeFilter, setActiveFilter] = React.useState(0)
 
    const sortRef = React.useRef<HTMLDivElement>(null)
 
    const toggleVisiblePopup = () => setVisiblePopup(!visiblePopup)
 
-   const onSelectFilter = (index: number) => {
-      setActiveFilter(index)
+   const onSelectFilter = (type: SortByType) => {
+      onClickSortType(type)
       setVisiblePopup(false)
    }
-   const activeFilterName = filterItems[activeFilter].name
+
+   let activeFilterName;
+   const activeFilter = filterItems.find(obj => obj.type === activeSortType)
+   if (activeFilter) {
+      activeFilterName = activeFilter.name
+   }
 
    const handleOutsideClick = (ev: any) => {
       if (!ev.path.includes(sortRef.current)) {
@@ -27,9 +30,12 @@ const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, onClickFil
       }
    }
 
-   React.useEffect(() => {
-      document.addEventListener('click', handleOutsideClick)
-   }, [])
+   const mappedSortType = filterItems && filterItems.map((obj, i) => (
+       <li key={`${obj.type}_${i}`}
+           className={activeSortType === obj.type ? 'active' : ''}
+           onClick={() => onSelectFilter(obj)}>
+          {obj.name}
+       </li>))
 
    return (
        <div ref={sortRef} className="sort">
@@ -51,16 +57,17 @@ const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, onClickFil
           </div>
           {visiblePopup && <div className="sort__popup">
              <ul>
-                {filterItems && filterItems.map((obj, i) => (
-                    <li key={`${obj.type}_${i}`}
-                        className={activeFilter === i ? 'active' : ''}
-                        onClick={() => onSelectFilter(i)}>
-                       {obj.name}
-                    </li>))}
+                {mappedSortType}
              </ul>
           </div>}
        </div>
    )
 })
+
+type SortPopupProps = {
+   filterItems: SortByType[]
+   activeSortType: string
+   onClickSortType: (type: SortByType) => void
+}
 
 export default SortPopup

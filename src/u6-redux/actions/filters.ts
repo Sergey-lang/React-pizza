@@ -1,11 +1,12 @@
-import {FilterItems} from '../../u5-pages/Home'
+import {SortByType} from '../../u5-pages/Home'
 
 export type FiltersActionsType =
-    ReturnType<typeof setSortBy>
+    ReturnType<typeof setSortBy> |
+    ReturnType<typeof setCategory>
 
-export const setSortBy = (name: string) => ({
+export const setSortBy = (type: SortByType) => ({
    type: 'filters/SET_SORT_BY',
-   payload: name,
+   payload: type,
 } as const)
 
 export const setCategory = (catIndex: number | null) => ({
