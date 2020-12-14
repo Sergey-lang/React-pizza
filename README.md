@@ -6,7 +6,7 @@ Online store for ordering pizza - `React Pizza`
 
 Stack:
 
-- ReactJS + хуки
+- ReactJS + hooks
 - React Router
 - Redux
 - Redux thunk
