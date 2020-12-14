@@ -7,7 +7,7 @@ type CategoriesProps = {
 
 const Categories: React.FC<CategoriesProps> = React.memo(
     ({types, onClickItem}) => {
-
+       console.log('RERENDER Categories')
        let [activeItem, setActiveItem] = React.useState<number | null>(null)
 
        const onSelectItem = (index: number | null) => {

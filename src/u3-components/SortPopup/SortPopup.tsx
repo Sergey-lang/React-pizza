@@ -6,8 +6,8 @@ type SortPopupProps = {
    onClickFilter?: (name: string) => void
 }
 
-const SortPopup: React.FC<SortPopupProps> = ({filterItems, onClickFilter}) => {
-
+const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, onClickFilter}) => {
+   console.log('RERENDER SortPopup')
    let [visiblePopup, setVisiblePopup] = React.useState(false)
    let [activeFilter, setActiveFilter] = React.useState(0)
 
@@ -21,7 +21,6 @@ const SortPopup: React.FC<SortPopupProps> = ({filterItems, onClickFilter}) => {
    }
    const activeFilterName = filterItems[activeFilter].name
 
-//check
    const handleOutsideClick = (ev: any) => {
       if (!ev.path.includes(sortRef.current)) {
          setVisiblePopup(false)
@@ -62,6 +61,6 @@ const SortPopup: React.FC<SortPopupProps> = ({filterItems, onClickFilter}) => {
           </div>}
        </div>
    )
-}
+})
 
 export default SortPopup
