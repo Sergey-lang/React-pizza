@@ -25,7 +25,8 @@ const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, activeSort
    }
 
    const handleOutsideClick = (ev: any) => {
-      if (!ev.path.includes(sortRef.current)) {
+      const path = ev.path || (ev.composedPath && ev.composedPath())
+      if (!path.includes(sortRef.current)) {
          setVisiblePopup(false)
       }
    }

@@ -9,11 +9,11 @@ import {Cart, Header, Home} from './u5-pages'
 export type Rating = 1 | 2 | 3 | 5 | 6 | 7 | 8 | 9 | 10
 export type PizzaType = {
    id: number
-   imageUrl: string
    name: string
-   types: number[]
-   sizes: number[]
+   imageUrl: string
    price: number
+   sizes: number[]
+   types: number[]
    category: number
    rating: Rating
 }

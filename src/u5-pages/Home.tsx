@@ -8,7 +8,8 @@ import {fetchPizzas} from '../u6-redux/actions/pizzas'
 import LoadingBlock from '../u3-components/PizzaBlock/LoadingBlock'
 import {FiltersInitialState} from '../u6-redux/reducers/filters'
 import {AppStateType} from '../u6-redux/store'
-
+import {AddCartPizzaType} from '../u3-components/PizzaBlock'
+import {addPizzaToCart} from '../u6-redux/actions/cart'
 
 const filterItems: SortByType[] = [
    {name: 'популярности', type: 'popular', order: 'desc'},
@@ -36,8 +37,14 @@ const Home: React.FC = (props) => {
       dispatch(setSortBy(type))
    }, [])
 
+   const handleAddPizzaToCart = (obj: AddCartPizzaType) => {
+      dispatch(addPizzaToCart(obj))
+   }
+
    const mappedPizza = isLoaded
-       ? items.map(obj => <PizzaBlock key={obj.id} {...obj}/>)
+       ? items.map(obj => <PizzaBlock onClickAddPizza={handleAddPizzaToCart}
+                                      key={obj.id}
+                                      {...obj}/>)
        : Array(12).fill(0).map((_, index) => <LoadingBlock key={index}/>)
 
    return (
