@@ -8,7 +8,6 @@ export type PizzasActionsType =
     ReturnType<typeof setPizzas> |
     ReturnType<typeof setLoaded>
 
-
 export const setPizzas = (items: PizzaType[]) => ({
    type: 'pizzas/SET_PIZZAS',
    payload: items,
@@ -25,7 +24,7 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, PizzasActionsType>
 export const fetchPizzas = (category: number | null, sortBy: SortByType,): ThunkType =>
     (dispatch: ThunkDispatch<AppStateType, unknown, PizzasActionsType>) => {
        dispatch(setLoaded(true))
-       axios.get<PizzaType[]>(`http://localhost:3001/pizzas?${
+       axios.get<PizzaType[]>(`/pizzas?${
            category !== null 
                ? `category=${category}` 
                : ''}&_sort=${sortBy.type}&_order=${sortBy.order}`)

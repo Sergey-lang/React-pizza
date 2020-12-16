@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import logoSvg from '../u1-assets/img/pizza-logo.svg'
-import {Button} from '../u3-components'
+import {Button} from './index'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppStateType} from '../u6-redux/store'

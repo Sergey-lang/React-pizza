@@ -8,8 +8,9 @@ import {fetchPizzas} from '../u6-redux/actions/pizzas'
 import LoadingBlock from '../u3-components/PizzaBlock/LoadingBlock'
 import {FiltersInitialState} from '../u6-redux/reducers/filters'
 import {AppStateType} from '../u6-redux/store'
-import {AddCartPizzaType} from '../u3-components/PizzaBlock'
+import {AddCartPizzaType} from '../u3-components/PizzaBlock/pizzaBlock'
 import {addPizzaToCart} from '../u6-redux/actions/cart'
+import {CartItem} from '../u6-redux/reducers/cart'
 
 const filterItems: SortByType[] = [
    {name: 'популярности', type: 'popular', order: 'desc'},
@@ -22,6 +23,7 @@ const Home: React.FC = (props) => {
 
    const dispatch = useDispatch()
    const items = useSelector<AppStateType, PizzaType[]>(state => state.pizzas.items)
+   const addedItemsToCart = useSelector<AppStateType, CartItem>(state => state.cart.items)
    const isLoaded = useSelector<AppStateType, boolean>(state => state.pizzas.isLoaded)
    const {category, sortBy} = useSelector<AppStateType, FiltersInitialState>(state => state.filters)
 
@@ -44,6 +46,7 @@ const Home: React.FC = (props) => {
    const mappedPizza = isLoaded
        ? items.map(obj => <PizzaBlock onClickAddPizza={handleAddPizzaToCart}
                                       key={obj.id}
+                                      addedCount={addedItemsToCart[obj.id] && addedItemsToCart[obj.id].items.length}
                                       {...obj}/>)
        : Array(12).fill(0).map((_, index) => <LoadingBlock key={index}/>)
 

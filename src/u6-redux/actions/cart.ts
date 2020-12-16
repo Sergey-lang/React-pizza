@@ -1,4 +1,4 @@
-import {AddCartPizzaType} from '../../u3-components/PizzaBlock'
+import {AddCartPizzaType} from '../../u3-components/PizzaBlock/pizzaBlock'
 
 export type CartActionsType =
     ReturnType<typeof addPizzaToCart>

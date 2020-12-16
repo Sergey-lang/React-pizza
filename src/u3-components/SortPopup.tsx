@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {SortByType, FilterType} from '../../u5-pages/Home'
+import {SortByType, FilterType} from '../u5-pages/Home'
 
 const SortPopup: React.FC<SortPopupProps> = React.memo(({filterItems, activeSortType, onClickSortType}) => {
 
