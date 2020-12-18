@@ -26,7 +26,7 @@ const App: React.FC = () => {
              <Header/>
              <div className="content">
                 <Route exact path='/' render={() => <Home/>}/>
-                <Route exact path='/cart' render={() => <Cart/>}/>
+                <Route exact path='/cart' render={() => <Cart />}/>
              </div>
           </div>
        </div>
