@@ -1,22 +1,43 @@
 import {CartActionsType} from '../actions/cart'
 import {AddCartPizzaType} from '../../u3-components/PizzaBlock/pizzaBlock'
 
-function getTotalPrice<T>(arr: T[]): number {
-   return arr.reduce((sum: number, obj: AddCartPizzaType[] | any) => obj.price + sum, 0)
+function getTotalPrice(arr: AddCartPizzaType[]): number {
+   return arr.reduce((sum: number, obj: AddCartPizzaType) => obj.price + sum, 0)
 }
 
-const _get = (obj: any, path: any) => {
+const _get = (obj: any, path: 'items.length' | 'totalPrice') => {
    const [firstKey, ...keys] = path.split('.')
    return keys.reduce((val: any, key: any) => {
       return val[key]
    }, obj[firstKey])
 }
 
-const getTotalSum = (obj: any, path: any) => {
-   return Object.values(obj).reduce((sum, obj) => {
+const getTotalSum = (obj: MainCartItemType, path: 'items.length' | 'totalPrice') => {
+   return Object.values(obj).reduce((sum: number, obj: any) => {
       const value = _get(obj, path)
       return sum + value
    }, 0)
+}
+
+type ItemsKeyValue = {
+   items: Array<AddCartPizzaType>
+   totalPrice: number
+}
+
+export type MainCartItemType = {
+   [key: string]: ItemsKeyValue
+}
+
+export type CartInitialState = {
+   items: MainCartItemType
+   totalPrice: number
+   totalCount: number
+}
+
+const initializeState: CartInitialState = {
+   items: {},
+   totalPrice: 0,
+   totalCount: 0,
 }
 
 export const cartReducer = (state: CartInitialState = initializeState, action: CartActionsType): CartInitialState => {
@@ -119,26 +140,7 @@ export const cartReducer = (state: CartInitialState = initializeState, action: C
    }
 }
 
-type ItemsKeyValue = {
-   items: Array<AddCartPizzaType>
-   totalPrice: number
-}
 
-export type MainCartItemType = {
-   [key: string]: ItemsKeyValue
-}
-
-export type CartInitialState = {
-   items: MainCartItemType
-   totalPrice: any
-   totalCount: any
-}
-
-const initializeState: CartInitialState = {
-   items: {},
-   totalPrice: 0,
-   totalCount: 0,
-}
 
 
 
