@@ -1,16 +1,15 @@
 import * as React from 'react'
 
-import {Categories, PizzaBlock, SortPopup} from '../u3-components'
 import {PizzaType} from '../App'
 import {useDispatch, useSelector} from 'react-redux'
-import {setCategory, setSortBy} from '../u6-redux/actions/filters'
-import {fetchPizzas} from '../u6-redux/actions/pizzas'
-import LoadingBlock from '../u3-components/PizzaBlock/LoadingBlock'
-import {FiltersInitialState} from '../u6-redux/reducers/filters'
+import {FiltersInitialState, setCategory, setSortBy} from '../u6-redux/reducers/filters-reducer'
 import {AppStateType} from '../u6-redux/store'
-import {AddCartPizzaType} from '../u3-components/PizzaBlock/pizzaBlock'
-import {addPizzaToCart} from '../u6-redux/actions/cart'
-import {MainCartItemType} from '../u6-redux/reducers/cart'
+import {addPizzaToCart, MainCartItemType} from '../u6-redux/reducers/cart-reducer'
+import {fetchPizzas} from '../u6-redux/reducers/pizzas-reducer'
+import {Categories} from '../u3-components/Categories'
+import {SortPopup} from '../u3-components/SortPopup'
+import {AddCartPizzaType, PizzaBlock} from '../u3-components/PizzaBlock/PizzaBlock'
+import { LoadingBlock } from '../u3-components/PizzaBlock/LoadingBlock'
 
 const filterItems: SortByType[] = [
    {name: 'популярности', type: 'popular', order: 'desc'},
@@ -19,7 +18,7 @@ const filterItems: SortByType[] = [
 
 const types: string[] = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
-const Home: React.FC = (props) => {
+export const Home: React.FC = (props) => {
 
    const dispatch = useDispatch()
    const items = useSelector<AppStateType, PizzaType[]>(state => state.pizzas.items)
@@ -32,11 +31,11 @@ const Home: React.FC = (props) => {
    }, [category, sortBy])
 
    const onSelectCategory = React.useCallback((index: number | null) => {
-      dispatch(setCategory(index))
+      dispatch(setCategory({catIndex: index}))
    }, [])
 
    const onSelectSortType = React.useCallback((type: SortByType) => {
-      dispatch(setSortBy(type))
+      dispatch(setSortBy({type: type}))
    }, [])
 
    const handleAddPizzaToCart = (obj: AddCartPizzaType) => {
@@ -79,5 +78,4 @@ export type SortByType = {
    order: 'desc' | 'asc'
 }
 
-export default Home
 

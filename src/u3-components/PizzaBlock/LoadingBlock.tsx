@@ -1,7 +1,7 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
 
-const LoadingBlock: React.FC = (props) => {
+export const LoadingBlock: React.FC = (props) => {
 
    return (
        <ContentLoader
@@ -22,5 +22,3 @@ const LoadingBlock: React.FC = (props) => {
        </ContentLoader>
    )
 }
-
-export default LoadingBlock

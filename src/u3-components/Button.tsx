@@ -8,7 +8,7 @@ type ButtonPropsType = DefaultButtonPropsType & {
    outline?: any
 }
 
-const Button: React.FC<ButtonPropsType> = ({className, outline, children,...restProps}) => {
+export const Button: React.FC<ButtonPropsType> = ({className, outline, children,...restProps}) => {
 
    return (
        <button className={classNames('button', className, {
@@ -18,5 +18,3 @@ const Button: React.FC<ButtonPropsType> = ({className, outline, children,...rest
        >{children}</button>
    )
 }
-
-export default Button

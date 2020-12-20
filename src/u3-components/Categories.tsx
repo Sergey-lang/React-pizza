@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const Categories: React.FC<CategoriesProps> = React.memo(
+export const Categories: React.FC<CategoriesProps> = React.memo(
     ({types, onClickCategory, activeCategory}) => {
 
        const mappedCategories = types && types
@@ -28,5 +28,3 @@ type CategoriesProps = {
    onClickCategory: (index: number | null) => void
    activeCategory: number | null
 }
-
-export default Categories

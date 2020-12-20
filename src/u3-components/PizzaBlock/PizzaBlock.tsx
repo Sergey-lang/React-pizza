@@ -1,9 +1,9 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import {PizzaType} from '../../App'
-import Button from '../Button'
+import { Button } from '../Button'
 
-const PizzaBlock: React.FC<PizzaBlockProps> =
+export const PizzaBlock: React.FC<PizzaBlockProps> =
     ({
         id,
         imageUrl,
@@ -110,5 +110,3 @@ type PizzaBlockProps = PizzaType & {
    onClickAddPizza: (object: AddCartPizzaType) => void
    addedCount: number
 }
-
-export default PizzaBlock

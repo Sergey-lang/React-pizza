@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Button from './Button'
+import { Button } from './Button'
 
-const CartItem: React.FC<CartItemProps> =
+export const CartItem: React.FC<CartItemProps> =
     ({
         id,
         name,
@@ -102,5 +102,3 @@ type CartItemProps = {
    onPlus: (id: number) => void
    onMinus: (id: number) => void
 }
-
-export default CartItem

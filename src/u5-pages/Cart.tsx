@@ -2,13 +2,19 @@ import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
-import {Button, CartItem} from '../u3-components'
 import {AppStateType} from '../u6-redux/store'
-import {clearCart, minusCartItem, plusCartItem, removeCartItem} from '../u6-redux/actions/cart'
-import {CartInitialState} from '../u6-redux/reducers/cart'
+import {
+   CartInitialState,
+   clearCart,
+   minusCartItem,
+   plusCartItem,
+   removeCartItem
+} from '../u6-redux/reducers/cart-reducer'
 import cartEmptyImage from '../u1-assets/img/empty-cart.png'
+import {CartItem} from '../u3-components/CartItem'
+import {Button} from '../u3-components/Button'
 
-const Cart: React.FC = (props) => {
+export const Cart: React.FC = () => {
 
    const dispatch = useDispatch()
    const {items, totalPrice, totalCount} = useSelector<AppStateType, CartInitialState>(state => state.cart)
@@ -37,7 +43,7 @@ const Cart: React.FC = (props) => {
       dispatch(minusCartItem(id))
    }
 
-   const onClickOrder= () => {
+   const onClickOrder = () => {
       console.log('ВАШ ЗАКАЗ', items)
    }
 
@@ -132,5 +138,3 @@ const Cart: React.FC = (props) => {
        </div>
    )
 }
-
-export default Cart
