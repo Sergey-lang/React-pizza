@@ -11,8 +11,8 @@ import {
    removeCartItem
 } from '../u6-redux/reducers/cart-reducer'
 import cartEmptyImage from '../u1-assets/img/empty-cart.png'
-import {CartItem} from '../u3-components/CartItem'
-import {Button} from '../u3-components/Button'
+import {CartItem} from '../u3-components/CartItem/CartItem'
+import {Button} from '../u3-components/Button/Button'
 
 export const Cart: React.FC = () => {
 

@@ -6,8 +6,8 @@ import {FiltersInitialState, setCategory, setSortBy} from '../u6-redux/reducers/
 import {AppStateType} from '../u6-redux/store'
 import {addPizzaToCart, MainCartItemType} from '../u6-redux/reducers/cart-reducer'
 import {fetchPizzas} from '../u6-redux/reducers/pizzas-reducer'
-import {Categories} from '../u3-components/Categories'
-import {SortPopup} from '../u3-components/SortPopup'
+import {Categories} from '../u3-components/Categories/Categories'
+import {SortPopup} from '../u3-components/SortPopup/SortPopup'
 import {AddCartPizzaType, PizzaBlock} from '../u3-components/PizzaBlock/PizzaBlock'
 import { LoadingBlock } from '../u3-components/PizzaBlock/LoadingBlock'
 

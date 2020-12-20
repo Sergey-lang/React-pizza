@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Route} from 'react-router-dom'
 import { Cart } from './u5-pages/Cart'
 import { Home } from './u5-pages/Home'
-import { Header } from './u3-components/Header'
+import { Header } from './u3-components/Header/Header'
 
 import './App.css'
 

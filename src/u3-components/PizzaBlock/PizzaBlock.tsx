@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import {PizzaType} from '../../App'
-import { Button } from '../Button'
+import { Button } from '../Button/Button'
 
 export const PizzaBlock: React.FC<PizzaBlockProps> =
     ({

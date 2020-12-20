@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import logoSvg from '../u1-assets/img/pizza-logo.svg'
+import logoSvg from '../../u1-assets/img/pizza-logo.svg'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import {AppStateType} from '../u6-redux/store'
-import {CartInitialState} from '../u6-redux/reducers/cart-reducer'
-import { Button } from './Button'
+import {AppStateType} from '../../u6-redux/store'
+import {CartInitialState} from '../../u6-redux/reducers/cart-reducer'
+import { Button } from '../Button/Button'
 
 export const Header = () => {
 
