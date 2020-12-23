@@ -32,7 +32,6 @@ export const Home: React.FC = (props) => {
                                                {...item}/>)
        : [...Array(8).map((_, index) => <PizzaBlock key={index} isLoading={pizzaIsLoading}/>)]
 
-//fetchPizzas
    React.useEffect(() => {
       dispatch(fetchPizzas(filters))
    }, [dispatch, filters])
@@ -42,7 +41,7 @@ export const Home: React.FC = (props) => {
    }, [])
 
    return (
-       <>
+       <div className="container">
           <div className="content__top">
              <Categories
                  activeCategory={filters.category}
@@ -61,7 +60,7 @@ export const Home: React.FC = (props) => {
                 mappedPizza
              }
           </div>
-       </>
+       </div>
    )
 }
 
