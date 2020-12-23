@@ -1,24 +1,52 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import {PizzaType} from '../../App'
-import { Button } from '../Button/Button'
+import {Button} from '../Button/Button'
+import {ItemArray} from '../../u6-redux/reducers/cart-reducer'
 
-export const PizzaBlock: React.FC<PizzaBlockProps> =
+import './PizzaBlock.scss';
+
+export type ItemType = {
+   id?: number
+   imageUrl?: string
+   name?: string
+   types?: [0, 1]
+   sizes?: [26, 30, 40]
+   price?: number
+   category?: number
+   rating?: number
+   cartItems?: ItemArray
+   onAdd?: Function
+   isLoading: boolean
+   key: number
+}
+
+export type objForCart = {
+   id: number
+   types: [0, 1] | []
+   price: number
+   sizes: [26, 30, 40] | []
+}
+
+export const PizzaBlock: React.FC<ItemType> =
     ({
-        id,
-        imageUrl,
-        name = '--',
+        id = 0,
+        imageUrl = '',
+        name = '',
         price = 0,
         types = [],
         sizes = [],
-        onClickAddPizza, addedCount
+        cartItems = {},
+        onAdd,
+        isLoading
      }) => {
 
        const availableTypes: string[] = ['тонкое', 'традиционнное']
        const availableSizes: number[] = [26, 30, 40]
 
-       const [activeType, setActiveType] = React.useState<number>(types[0])
-       const [activeSize, setActiveSize] = React.useState<number>(0)
+       const addedCount = cartItems[id] ? cartItems[id].length : 0
+
+       const [activeType, setActiveType] = React.useState<number>(0)
+       const [activeSize, setActiveSize] = React.useState<number>(availableSizes[0])
 
        const onSelectType = (index: number) => {
           setActiveType(index)
@@ -29,36 +57,41 @@ export const PizzaBlock: React.FC<PizzaBlockProps> =
        }
 
        const onAddPizza = () => {
-          const obj: AddCartPizzaType = {
+          //этот объект приходит из ... и из него делаем новый для сравнения(данные в пропсах)
+          const obj: objForCart = {
              id,
-             imageUrl,
-             name,
+             types,
              price,
-             size: availableSizes[activeSize],
-             type: availableTypes[activeType]
+             sizes,
           }
-          onClickAddPizza(obj)
+          if (onAdd) {
+             onAdd(obj)
+          }
        }
 
        const mappedAvailableTypes = availableTypes
-           .map((type, index) =>
-               <li key={type}
+           .map((curType: string, index: number) =>
+               <li key={index}
+                   onClick={() => onSelectType(index)}
                    className={classNames({
-                      'active': activeType === index,
-                      'disabled': !types.includes(index)
-                   })}
-                   onClick={() => onSelectType(index)}>{type}</li>)
+                      active: index === activeType,
+                      disabled: !types.includes(index as never),
+                   })}>{curType}
+               </li>)
 
-       const mappedAvailableSizes = availableSizes
-           .map((size, index) =>
-               <li key={size}
-                   className={classNames({
-                      'active': activeSize === index,
-                      'disabled': !sizes.includes(size)
-                   })}
-                   onClick={() => onSelectSize(index)}>{size} см.</li>)
 
-       return <div className="pizza-block">
+       const mappedAvailableSizes: JSX.Element[] = availableSizes.map((curSize: number, index: number) => {
+              return <li key={index}
+                         onClick={() => onSelectSize(curSize)}
+                         className={classNames({
+                            active: curSize === activeSize,
+                            disabled: !sizes.includes(curSize as never) //never type
+                         })}>{curSize} см.
+              </li>
+           }
+       )
+
+       return <div className={classNames('pizza-block', {'pizza-block--loading': isLoading})}>
           <img
               className="pizza-block__image"
               src={imageUrl}
@@ -91,22 +124,8 @@ export const PizzaBlock: React.FC<PizzaBlockProps> =
                    />
                 </svg>
                 <span>Добавить</span>
-                <i>{addedCount? addedCount: 0}</i>
+                {addedCount > 0 && <i>{addedCount}</i>}
              </Button>
           </div>
        </div>
     }
-
-export type AddCartPizzaType = {
-   id: number
-   imageUrl: string
-   name: string
-   price: number
-   size: number
-   type: string
-}
-
-type PizzaBlockProps = PizzaType & {
-   onClickAddPizza: (object: AddCartPizzaType) => void
-   addedCount: number
-}

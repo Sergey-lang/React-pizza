@@ -1,4 +1,5 @@
-@import 'variables';
+@import '../../u0-scss/variables';
+@import '../../u0-scss/libs/normalize';
 
 .pizza-block {
    width: 100%;
@@ -53,7 +54,7 @@
 
             &.active {
                background: #ffffff;
-               box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
                border-radius: 5px;
                cursor: auto;
             }

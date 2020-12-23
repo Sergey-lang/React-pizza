@@ -1,30 +1,28 @@
 import * as React from 'react'
 
-export const Categories: React.FC<CategoriesProps> = React.memo(
-    ({types, onClickCategory, activeCategory}) => {
+type CategoriesProps = {
+   activeCategory: number | null
+   items: Array<string>
+   onClick: Function
+}
 
-       const mappedCategories = types && types
-           .map((name, index) => (
-               <li key={`${name}_${index}`}
-                   onClick={() => onClickCategory(index)}
-                   className={activeCategory === index ? 'active' : ''}
-               >{name}</li>))
+export const Categories: React.FC<CategoriesProps> =
+    ({activeCategory, items, onClick}) => {
 
+       const mappedCategories = items && items
+           .map((item, index) => (
+               <li
+                   key={index}
+                   onClick={onClick.bind(this,index)}
+                   className={activeCategory === index ? 'active' : ''}>
+                  {item}
+               </li>
+           ))
        return (
            <div className="categories">
               <ul>
-                 <li className={activeCategory === null ? 'active' : ''}
-                     onClick={() => onClickCategory(null)}>Все
-                 </li>
                  {mappedCategories}
               </ul>
            </div>
        )
     }
-)
-
-type CategoriesProps = {
-   types: string[]
-   onClickCategory: (index: number | null) => void
-   activeCategory: number | null
-}

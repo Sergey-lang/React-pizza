@@ -121,7 +121,7 @@ body {
       display: flex;
       align-items: center;
       cursor: pointer;
-      @include noselect();
+      //@include noselect();
 
       span {
          display: inline-block;
@@ -361,7 +361,6 @@ body {
 
             span {
                color: darken($color: $gray-line, $amount: 20);
-               font-weight: 500;
                font-weight: 600;
             }
 

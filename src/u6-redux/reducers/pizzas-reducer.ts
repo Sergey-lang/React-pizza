@@ -1,46 +1,62 @@
-import {PizzaType} from '../../App'
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {SortByType} from '../../u5-pages/Home'
 import {Dispatch} from 'redux'
 import axios from 'axios'
+import {FiltersInitialState} from './filters-reducer'
 
-export type PizzasInitialState = {
-   items: PizzaType[] | []
-   isLoaded: boolean
+export type PizzaItemType = {
+   id: number
+   imageUrl: string
+   name: string
+   types: [0, 1]
+   sizes: [26, 30, 40]
+   price: number
+   category: number
+   rating: number
 }
 
-const initialState: PizzasInitialState = {
-   items: [],
-   isLoaded: false
+type ErrorType = null | string
+
+const initialState = {
+   items: [] as Array<PizzaItemType>,
+   isLoading: false,
+   error: null as ErrorType
 }
+
+export type PizzasInitialState = typeof initialState
 
 const slice = createSlice({
    name: 'pizzas',
    initialState: initialState,
    reducers: {
-      setPizzas(state, action: PayloadAction<{ items: PizzaType[] }>) {
+      setItems(state, action: PayloadAction<{ items: PizzaItemType[] }>) {
          state.items = action.payload.items
-         state.isLoaded = true
+         state.isLoading = false
       },
-      setLoaded(state, action: PayloadAction<{ value: boolean }>) {
-         state.isLoaded = action.payload.value
+      isLoading(state) {
+         state.isLoading = true
+      },
+      isLoaded(state) {
+         state.isLoading = false
+      },
+      isError(state, acton: PayloadAction<{ error: null | string }>) {
+         state.isLoading = false
+         state.error = acton.payload.error
       },
    }
 })
 
 export const pizzasReducer = slice.reducer
-export const {setPizzas, setLoaded} = slice.actions
+export const {setItems, isLoaded, isLoading, isError} = slice.actions
 
 //Thunk
-export const fetchPizzas = (category: number | null, sortBy: SortByType) =>
-    (dispatch: Dispatch) => {
-       dispatch(setLoaded({value: true}))
-       axios.get<PizzaType[]>(`/pizzas?${
-           category !== null
-               ? `category=${category}`
-               : ''}&_sort=${sortBy.type}&_order=${sortBy.order}`)
-           .then(({data}) => {
-              dispatch(setPizzas({items: data}))
-           })
-       dispatch(setLoaded({value: false}))
-    }
+export const fetchPizzas = (filters: FiltersInitialState) => (dispatch: Dispatch) => {
+   dispatch(isLoading())
+   axios.get(`/pizzas?${filters.category ? 'category=' + filters.category + '&' : ''}_sort=${filters.sortBy}&_order=desc`)
+       .then(({data}) => {
+          dispatch(setItems({items: data}))
+       })
+       .catch(err => {
+          console.error(err)
+          dispatch(isError(err))
+       })
+}

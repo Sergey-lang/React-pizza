@@ -1,30 +1,30 @@
 import * as React from 'react'
-import { Button } from '../Button/Button'
+import {Button} from '../Button/Button'
+
+export type CartItemProps = {
+   imageUrl: string
+   name: string
+   type?: number
+   size?: Array<number>
+   count: number
+   price?: number
+   onMinus: () => void
+   onPlus: () => void
+   onRemoveItem?: () => void
+}
 
 export const CartItem: React.FC<CartItemProps> =
     ({
-        id,
         name,
         type,
         size,
-        totalPrice,
-        totalCount,
+        count,
         onRemoveItem,
         onMinus,
         onPlus,
      }) => {
 
-       const handleRemoveClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-          onRemoveItem(id)
-       }
-
-       const handlePlusItem = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-          onPlus(id)
-       }
-
-       const handleMinusItem = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-          onMinus(id)
-       }
+       const typeNames = ['тонкое', 'традиционное']
 
        return (
            <>
@@ -38,10 +38,11 @@ export const CartItem: React.FC<CartItemProps> =
                  </div>
                  <div className="cart__item-info">
                     <h3>{name}</h3>
-                    <p>{type} тесто, {size} см.</p>
+                    <p>{typeNames[type ? type : 0]} тесто, {size} см.</p>
                  </div>
                  <div className="cart__item-count">
-                    <div onClick={handleMinusItem} className="button button--outline button--circle cart__item-count-minus">
+                    <div onClick={onMinus}
+                         className="button button--outline button--circle cart__item-count-minus">
                        <svg width="10"
                             height="10"
                             viewBox="0 0 10 10"
@@ -55,8 +56,9 @@ export const CartItem: React.FC<CartItemProps> =
                               fill="#EB5A1E"/>
                        </svg>
                     </div>
-                    <b>{totalCount}</b>
-                    <div onClick={handlePlusItem} className="button button--outline button--circle cart__item-count-plus">
+                    <b>{count}</b>
+                    <div onClick={onPlus}
+                         className="button button--outline button--circle cart__item-count-plus">
                        <svg width="10"
                             height="10"
                             viewBox="0 0 10 10"
@@ -72,10 +74,10 @@ export const CartItem: React.FC<CartItemProps> =
                     </div>
                  </div>
                  <div className="cart__item-price">
-                    <b>{totalPrice} ₽</b>
+                    <b>{} ₽</b>
                  </div>
                  <div className="cart__item-remove">
-                    <Button outline onClick={handleRemoveClick} className="button--circle">
+                    <Button outline onClick={onRemoveItem} className="button--circle">
                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                               d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -91,14 +93,3 @@ export const CartItem: React.FC<CartItemProps> =
        )
     }
 
-type CartItemProps = {
-   id: number
-   name: string
-   type: string
-   size: number
-   totalPrice: number
-   totalCount: number
-   onRemoveItem: (id: number) => void
-   onPlus: (id: number) => void
-   onMinus: (id: number) => void
-}

@@ -1,28 +1,23 @@
-import {SortByType} from '../../u5-pages/Home'
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-export type FiltersInitialState = {
-   category: number | null
-   sortBy: SortByType
+export type SortByType = 'rating' | 'price' | 'name'
+type Category = number | null
+
+const initialState = {
+   category: 0 as Category ,
+   sortBy: 'rating' as SortByType
 }
 
-const initialState: FiltersInitialState = {
-   category: null,
-   sortBy: {
-      name: 'популярности',
-      type: 'popular',
-      order: 'desc'
-   }
-}
+export type FiltersInitialState = typeof initialState
 
 const slice = createSlice({
    name: 'filters',
    initialState: initialState,
    reducers: {
-      setSortBy(state, action: PayloadAction<{type: SortByType }>) {
-         state.sortBy = action.payload.type
+      setSortBy(state, action: PayloadAction<{name: any }>) {
+         state.sortBy = action.payload.name
       },
-      setCategory(state, action: PayloadAction<{ catIndex: number | null }>) {
+      setCategory(state, action: PayloadAction<{ catIndex: number | null}>) {
          state.category = action.payload.catIndex
       },
    }

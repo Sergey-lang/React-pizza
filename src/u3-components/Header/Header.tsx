@@ -3,13 +3,15 @@ import * as React from 'react'
 import logoSvg from '../../u1-assets/img/pizza-logo.svg'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
+import {Button} from '../Button/Button'
 import {AppStateType} from '../../u6-redux/store'
-import {CartInitialState} from '../../u6-redux/reducers/cart-reducer'
-import { Button } from '../Button/Button'
 
 export const Header = () => {
 
-   const {totalPrice, totalCount} = useSelector<AppStateType, CartInitialState>(state => state.cart)
+   const [cartTotalPrice, cartItemsCount] = useSelector<AppStateType, [number, number]>(state => [
+      state.cart.totalPrice,
+      state.cart.itemsCount,
+   ])
 
    return (
        <div className="header">
@@ -28,7 +30,7 @@ export const Header = () => {
              <div className="header__cart">
                 <Link to='/cart'>
                    <Button className={'button--cart'}>
-                      <span>{totalPrice} ₽</span>
+                      <span>{cartTotalPrice} ₽</span>
                       <div className="button__delimiter"></div>
                       <svg
                           width="18"
@@ -59,7 +61,7 @@ export const Header = () => {
                              strokeLinejoin="round"
                          />
                       </svg>
-                      <span>{totalCount}</span>
+                      <span>{cartItemsCount}</span>
                    </Button>
                 </Link>
              </div>

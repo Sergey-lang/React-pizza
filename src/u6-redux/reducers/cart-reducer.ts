@@ -1,172 +1,55 @@
-import {AddCartPizzaType} from '../../u3-components/PizzaBlock/PizzaBlock'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {Dispatch} from 'redux'
+import {PizzaItemType} from './pizzas-reducer'
+import {objForCart} from '../../u3-components/PizzaBlock/PizzaBlock'
 
-function getTotalPrice(arr: AddCartPizzaType[]): number {
-   return arr.reduce((sum: number, obj: AddCartPizzaType) => obj.price + sum, 0)
+export type ItemArray = {
+   [key: string]: Array<PizzaItemType>
 }
 
-const _get = (obj: any, path: 'items.length' | 'totalPrice') => {
-   const [firstKey, ...keys] = path.split('.')
-   return keys.reduce((val: any, key: any) => {
-      return val[key]
-   }, obj[firstKey])
-}
-
-const getTotalSum = (obj: MainCartItemType, path: 'items.length' | 'totalPrice') => {
-   return Object.values(obj).reduce((sum: number, obj: any) => {
-      const value = _get(obj, path)
-      return sum + value
-   }, 0)
-}
-
-type ItemsKeyValue = {
-   items: Array<AddCartPizzaType>
-   totalPrice: number
-}
-
-export type MainCartItemType = {
-   [key: string]: ItemsKeyValue
-}
-
-export type CartInitialState = {
-   items: MainCartItemType
-   totalPrice: number
-   totalCount: number
-}
-
-const initializeState: CartInitialState = {
-   items: {},
+const initialState = {
+   items: {} as ItemArray,
    totalPrice: 0,
-   totalCount: 0,
+   itemsCount: 0,
 }
 
-export const cartReducer = (state: CartInitialState = initializeState, action: CartActionsType): CartInitialState => {
-   switch (action.type) {
+export type CartInitialState = typeof initialState
 
-      case 'cart/ADD_PIZZA_CART': {
-         const currentPizzaItems = !state.items[action.payload.id]
-             ? [action.payload]
-             : [...state.items[action.payload.id].items, action.payload]
-
-         const newItems = {
-            ...state.items,
-            [action.payload.id]: {
-               items: currentPizzaItems,
-               totalPrice: getTotalPrice(currentPizzaItems)
-            }
+const slice = createSlice({
+   name: 'cart',
+   initialState: initialState,
+   reducers: {
+      addPizzaToCart(state, action: PayloadAction<{ pizzaItem: PizzaItemType }>) {
+         if (!state.items[action.payload.pizzaItem.id]) {
+            state.items[action.payload.pizzaItem.id] = []
          }
-
-         const totalCount = getTotalSum(newItems, 'items.length')
-         const totalPrice = getTotalSum(newItems, 'totalPrice')
-
-         return {
-            ...state,
-            items: newItems,
-            totalCount,
-            totalPrice,
+         state.items[action.payload.pizzaItem.id].push(action.payload.pizzaItem)
+      },
+      plusItem(state, action: PayloadAction<{ id: number }>) {
+         state.items[action.payload.id].push(state.items[action.payload.id][0])
+      },
+      minusItem(state, action: PayloadAction<{ id: number }>) {
+         if (state.items[action.payload.id].length > 1) {
+            state.items[action.payload.id].shift()
          }
-      }
-
-      case 'cart/REMOVE_CART_ITEM': {
-         const newItems = {
-            ...state.items
-         }
-         const currentTotalPrice = newItems[action.payload].totalPrice
-         const currentTotalCount = newItems[action.payload].items.length
-         delete newItems[action.payload]
-         return {
-            ...state,
-            items: newItems,
-            totalPrice: state.totalPrice - currentTotalPrice,
-            totalCount: state.totalCount - currentTotalCount
-         }
-      }
-
-      case 'cart/CLEAR_CART': {
-         return {totalCount: 0, totalPrice: 0, items: {}}
-      }
-
-      case 'cart/PLUS_CART_ITEM': {
-         const newObjItems = [
-            ...state.items[action.payload].items,
-            state.items[action.payload].items[0]
-         ]
-
-         const newItems = {
-            ...state.items,
-            [action.payload]: {
-               items: newObjItems,
-               totalPrice: getTotalPrice(newObjItems)
-            }
-         }
-
-         const totalCount = getTotalSum(newItems, 'items.length')
-         const totalPrice = getTotalSum(newItems, 'totalPrice')
-
-         return {
-            ...state,
-            items: newItems,
-            totalCount,
-            totalPrice
-         }
-      }
-
-      case 'cart/MINUS_CART_ITEM': {
-         const oldItems = state.items[action.payload].items
-         const newObjItems = oldItems.length > 1
-             ? state.items[action.payload].items.slice(1)
-             : oldItems
-
-         const newItems = {
-            ...state.items,
-            [action.payload]: {
-               items: newObjItems,
-               totalPrice: getTotalPrice(newObjItems)
-            }
-         }
-
-         const totalCount = getTotalSum(newItems, 'items.length')
-         const totalPrice = getTotalSum(newItems, 'totalPrice')
-
-         return {
-            ...state,
-            items: newItems,
-            totalCount,
-            totalPrice
-         }
-      }
-      default:
-         return state
+      },
+      removeItemsById(state, action: PayloadAction<{ id: number }>) {
+         delete state.items[action.payload.id]
+      },
+      clearItems(state) {
+         state.items = {}
+      },
    }
+})
+
+export const cartReducer = slice.reducer
+export const {addPizzaToCart, plusItem, minusItem, removeItemsById, clearItems} = slice.actions
+
+//Thunk
+export const addToCart = (pizzaItem: objForCart) => (dispatch: Dispatch, getState: Function) => {
+   //Array PizzaItemType
+   const pizzas = getState().pizzas.items
+   //PizzaItemType
+   const pizzaObj = pizzas && pizzas.find((obj: { id: number }) => obj.id === pizzaItem.id)
+   dispatch(addPizzaToCart({pizzaItem: pizzaObj}))
 }
-
-//Actions
-export type CartActionsType =
-    ReturnType<typeof addPizzaToCart> |
-    ReturnType<typeof clearCart> |
-    ReturnType<typeof removeCartItem> |
-    ReturnType<typeof plusCartItem> |
-    ReturnType<typeof minusCartItem>
-
-export const addPizzaToCart = (pizzaObj: AddCartPizzaType) => ({
-   type: 'cart/ADD_PIZZA_CART',
-   payload: pizzaObj,
-} as const)
-
-export const clearCart = () => ({
-   type: 'cart/CLEAR_CART',
-} as const)
-
-export const removeCartItem = (id: number) => ({
-   type: 'cart/REMOVE_CART_ITEM',
-   payload: id,
-} as const)
-
-export const plusCartItem = (id: number) => ({
-   type: 'cart/PLUS_CART_ITEM',
-   payload: id,
-} as const)
-
-export const minusCartItem = (id: number) => ({
-   type: 'cart/MINUS_CART_ITEM',
-   payload: id,
-} as const)
