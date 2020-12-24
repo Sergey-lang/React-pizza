@@ -4,7 +4,7 @@ import {FiltersInitialState, setCategory, setSortBy} from '../u6-redux/reducers/
 import {AppStateType} from '../u6-redux/store'
 import {fetchPizzas, PizzaItemType} from '../u6-redux/reducers/pizzas-reducer'
 import {Categories} from '../u3-components/Categories/Categories'
-import {SortPopup} from '../u3-components/SortPopup/SortPopup'
+import {FilterItemType, SortPopup} from '../u3-components/SortPopup/SortPopup'
 import {objForCart, PizzaBlock} from '../u3-components/PizzaBlock/PizzaBlock'
 import {addToCart} from '../u6-redux/reducers/cart-reducer'
 
@@ -15,13 +15,13 @@ export const Home: React.FC = (props) => {
    const pizzaIsLoading = useSelector<AppStateType, boolean>(state => state.pizzas.isLoading)
    const cartItems = useSelector<AppStateType, any>(state => state.cart.items)
    const filters = useSelector<AppStateType, FiltersInitialState>(state => state.filters)
-   //empty object
+
    const addItemsToCart = React.useCallback((obj: objForCart) => dispatch(addToCart(obj)), [dispatch])
 
    const selectCategory = React.useCallback((index: number | null) => dispatch(setCategory({catIndex: index}))
        , [dispatch])
 
-   const selectSort = React.useCallback((obj: any) => dispatch(setSortBy({name: obj.value}))//get object
+   const selectSort = React.useCallback((filterObj: FilterItemType) => dispatch(setSortBy({name: filterObj.value}))
        , [dispatch])
 
    const mappedPizza = pizzasItems && !pizzaIsLoading

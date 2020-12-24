@@ -3,7 +3,7 @@ import {PopupMenu} from '../PopupMenu/PopupMenu'
 
 type SortPopupProps = {
    sortBy: string
-   onSelect: (name: any) => void
+   onSelect: (obj: FilterItemType) => void
 }
 
 export type FilterItemType = {
@@ -22,6 +22,7 @@ export const SortPopup: React.FC<SortPopupProps> = ({sortBy = 'rating', onSelect
    ]
 
    const selected = items.find(obj => obj.value === sortBy)
+
    return (
        <div className="sort">
           <PopupMenu

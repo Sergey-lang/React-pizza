@@ -14,7 +14,7 @@ const slice = createSlice({
    name: 'filters',
    initialState: initialState,
    reducers: {
-      setSortBy(state, action: PayloadAction<{name: any }>) {
+      setSortBy(state, action: PayloadAction<{name: SortByType}>) {
          state.sortBy = action.payload.name
       },
       setCategory(state, action: PayloadAction<{ catIndex: number | null}>) {
