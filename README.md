@@ -4,6 +4,8 @@ Online store for ordering pizza - `React Pizza`
 
 ***(The Scss and HTML was taken from open sources)***
 
+***button "pay for everything" show message in console with all products***
+
 ### https://react-pizza-one.herokuapp.com/#/
 
 Stack:
