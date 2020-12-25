@@ -1,15 +1,12 @@
-import {isLoaded, PizzasInitialState, pizzasReducer, setItems} from './pizzas-reducer'
-
-type PizzaType = {
-   id: number
-   imageUrl: string
-   name: string
-   types: [0, 1]
-   sizes: [26, 30, 40]
-   price: number
-   category: number
-   rating: number
-}
+import {
+   isError,
+   isLoaded,
+   isLoading,
+   PizzaItemType,
+   PizzasInitialState,
+   pizzasReducer,
+   setItems
+} from './pizzas-reducer'
 
 let startState: PizzasInitialState
 beforeEach(() => {
@@ -20,8 +17,8 @@ beforeEach(() => {
    }
 })
 
-test('set pizzas on page', () => {
-   const pizzaObj: PizzaType[] = [
+test('set pizzas array on  main page', () => {
+   const items: PizzaItemType[] = [
       {
          'id': 8,
          'imageUrl': 'https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/ec29465e-606b-4a04-a03e-da3940d37e0e.jpg',
@@ -44,18 +41,38 @@ test('set pizzas on page', () => {
       }
    ]
 
-   const action = setItems({items: pizzaObj})
+   const action = setItems({items: items})
 
    const endState = pizzasReducer(startState, action)
 
    expect(endState.items.length).toEqual(2)
 })
 
-test('change sort category', () => {
+test('loading status should be change, to be "false"', () => {
 
-   const action = isLoaded({value: true})
+   const action = isLoaded()
+
+   const endState = pizzasReducer(startState, action)
+
+   expect(endState.isLoading).toBeFalsy()
+})
+
+test('loading status should be change, to be "true"', () => {
+
+   const action = isLoading()
 
    const endState = pizzasReducer(startState, action)
 
    expect(endState.isLoading).toBeTruthy()
 })
+
+test('show error in console if request to json has mistakes', () => {
+
+   const action = isError({error: 'request mistake'})
+
+   const endState = pizzasReducer(startState, action)
+
+   expect(endState.isLoading).toBeFalsy()
+   expect(endState.error).toBe('request mistake')
+})
+

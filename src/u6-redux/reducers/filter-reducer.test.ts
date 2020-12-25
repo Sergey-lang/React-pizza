@@ -4,11 +4,7 @@ let startState: FiltersInitialState;
 beforeEach(() => {
    startState = {
       category: 1,
-      sortBy: {
-         name: 'популярности',
-         type: 'popular',
-         order: 'desc'
-      }
+      sortBy: 'rating'
    }
 })
 
@@ -21,17 +17,10 @@ test('set category', () => {
 })
 
 test('change sort category', () => {
-   const sortBy = {
-      name:'цене',
-      type: 'price',
-      order: 'desc',
-   }
 
-   const action = setSortBy({type: sortBy})
+   const action = setSortBy({name:'name'})
 
    const endState = filtersReducer(startState,action)
 
-   expect(endState.sortBy.name).toBe('цене')
-   expect(endState.sortBy.type).toBe('price')
-   expect(endState.sortBy.order).toBe('desc')
+   expect(endState.sortBy).toBe('name')
 })

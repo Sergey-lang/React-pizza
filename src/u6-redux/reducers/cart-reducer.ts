@@ -4,7 +4,6 @@ import {PizzaItemType} from './pizzas-reducer'
 import {objForCart} from '../../u3-components/PizzaBlock/PizzaBlock'
 import { reduce, map } from 'lodash';
 
-
 export type ItemArray = {
    [key: string]: Array<PizzaItemType>
 }
@@ -48,12 +47,12 @@ const slice = createSlice({
          }
       },
       removeItemsById(state, action: PayloadAction<{ id: number }>) {
-         debugger
+
          delete state.items[action.payload.id]
 
-         // const result = reduce(map(state.items), (prev, cur) => prev.concat(cur as never), []);
-         // state.totalPrice = result.reduce((total:number, obj:PizzaItemType) => obj.price + total, 0);
-         // state.itemsCount = result.length;
+         const result = reduce(map(state.items), (prev, cur) => prev.concat(cur as never), []);
+         state.totalPrice = result.reduce((total:number, obj:PizzaItemType) => obj.price + total, 0);
+         state.itemsCount = result.length;
       },
       clearItems(state) {
          state.items = {}
