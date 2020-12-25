@@ -8,10 +8,8 @@ import {AppStateType} from '../../u6-redux/store'
 
 export const Header = () => {
 
-   const [cartTotalPrice, cartItemsCount] = useSelector<AppStateType, [number, number]>(state => [
-      state.cart.totalPrice,
-      state.cart.itemsCount,
-   ])
+   const cartTotalPrice = useSelector<AppStateType, number>(state => state.cart.totalPrice)
+   const cartItemsCount = useSelector<AppStateType, number>(state => state.cart.itemsCount)
 
    return (
        <div className="header">

@@ -19,6 +19,7 @@ export const CartItem: React.FC<CartItemProps> =
         type,
         size,
         count,
+        price,
         onRemoveItem,
         onMinus,
         onPlus,
@@ -74,7 +75,7 @@ export const CartItem: React.FC<CartItemProps> =
                     </div>
                  </div>
                  <div className="cart__item-price">
-                    <b>{} ₽</b>
+                    <b>{price} ₽</b>
                  </div>
                  <div className="cart__item-remove">
                     <Button outline onClick={onRemoveItem} className="button--circle">

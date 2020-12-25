@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import {Button} from '../Button/Button'
 import {ItemArray} from '../../u6-redux/reducers/cart-reducer'
 
-import './PizzaBlock.scss';
+import './PizzaBlock.scss'
 
 export type ItemType = {
    id?: number
@@ -57,7 +57,6 @@ export const PizzaBlock: React.FC<ItemType> =
        }
 
        const onAddPizza = () => {
-          //этот объект приходит из ... и из него делаем новый для сравнения(данные в пропсах)
           const obj: objForCart = {
              id,
              types,

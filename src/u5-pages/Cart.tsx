@@ -12,6 +12,7 @@ import {EmptyCart} from './EmptyCart'
 export const Cart: React.FC = () => {
 
    const dispatch = useDispatch()
+
    const cartItems = useSelector<AppStateType, ItemArray>(state => state.cart.items)
    const totalPrice = useSelector<AppStateType, number>(state => state.cart.totalPrice)
    const itemsCount = useSelector<AppStateType, number>(state => state.cart.itemsCount)

@@ -4,6 +4,7 @@ import {PizzaItemType} from './pizzas-reducer'
 import {objForCart} from '../../u3-components/PizzaBlock/PizzaBlock'
 import { reduce, map } from 'lodash';
 
+
 export type ItemArray = {
    [key: string]: Array<PizzaItemType>
 }
@@ -47,11 +48,12 @@ const slice = createSlice({
          }
       },
       removeItemsById(state, action: PayloadAction<{ id: number }>) {
+         debugger
          delete state.items[action.payload.id]
 
-         const result = reduce(map(state.items), (prev, cur) => prev.concat(cur as never), []);
-         state.totalPrice = result.reduce((total:number, obj:PizzaItemType) => obj.price + total, 0);
-         state.itemsCount = result.length;
+         // const result = reduce(map(state.items), (prev, cur) => prev.concat(cur as never), []);
+         // state.totalPrice = result.reduce((total:number, obj:PizzaItemType) => obj.price + total, 0);
+         // state.itemsCount = result.length;
       },
       clearItems(state) {
          state.items = {}
@@ -62,15 +64,6 @@ const slice = createSlice({
       },
    }
 })
-
-//redux toolkit, find  resolve call function outside slice
-// const getAllPizzasArray = (state: ItemArray): Array<PizzaItemType> => {
-//    return reduce(map(state.items), (prev, cur) => prev.concat(cur as never), [])
-// }
-//
-// const getTotalPrice = (pizzasArray: Array<PizzaItemType>) => {
-//    return pizzasArray.reduce((total: number, obj: PizzaItemType) => obj.price + total, 0)
-// }
 
 export const cartReducer = slice.reducer
 export const {addPizzaToCart, plusItem, minusItem, removeItemsById, clearItems} = slice.actions
@@ -83,3 +76,12 @@ export const addToCart = (pizzaItem: objForCart) => (dispatch: Dispatch, getStat
    const pizzaObj = pizzas && pizzas.find((obj: { id: number }) => obj.id === pizzaItem.id)
    dispatch(addPizzaToCart({pizzaItem: pizzaObj}))
 }
+
+//redux toolkit, find  resolve call function outside slice
+// const getAllPizzasArray = (state: ItemArray): Array<PizzaItemType> => {
+//    return reduce(map(state.items), (prev, cur) => prev.concat(cur as never), [])
+// }
+//
+// const getTotalPrice = (pizzasArray: Array<PizzaItemType>) => {
+//    return pizzasArray.reduce((total: number, obj: PizzaItemType) => obj.price + total, 0)
+// }

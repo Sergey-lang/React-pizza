@@ -18,9 +18,9 @@ export const PopupMenu: React.FC<PopupMenuType> = ({children, items, onClick, ac
    const clickOutsideCallback = React.useCallback(e => {
       // const path = e.path || (e.composedPath && e.composedPath())
       if (!e.path.includes(sortRef.current)) {
-         setVisiblePopup(false);
+         setVisiblePopup(false)
       }
-   }, []);
+   }, [])
 
    const handleOutsideClick = (item: FilterItemType) => {
       if (onClick) {
@@ -29,8 +29,12 @@ export const PopupMenu: React.FC<PopupMenuType> = ({children, items, onClick, ac
       setVisiblePopup(false)
    }
 
-   // ParentNode.querySelector<"body">(     selectors: "body"): HTMLBodyElement | null
-   // ParentNode.querySelector<E extends Element = Element>(     selectors: string): E | null
+   React.useEffect(() => {
+      document.querySelector('body')!.addEventListener('click', clickOutsideCallback)
+      return () => document.querySelector('body')!.removeEventListener('click', clickOutsideCallback)
+   }, [clickOutsideCallback])
+
+
    const mappedSortType = items && items.map((item: FilterItemType, index: number) => (
        <li
            key={index}
@@ -39,21 +43,13 @@ export const PopupMenu: React.FC<PopupMenuType> = ({children, items, onClick, ac
           {item.label}
        </li>))
 
-   React.useEffect(() => {
-      // const  doc = document.querySelector<"body">('body'): HTMLBodyElement | null
-      const  doc = document.querySelector<E extends Element = Element>('body'): E | null
-      doc.addEventListener('click', clickOutsideCallback);
-
-      return () => document.querySelector('body').removeEventListener('click', clickOutsideCallback);
-   }, [clickOutsideCallback]);
-
    return (
        <React.Fragment>
-          <div onClick={() => {
+          <div ref={sortRef} onClick={() => {
              setVisiblePopup(!visiblePopup)
           }}>{children}</div>
           {visiblePopup && (
-              <div ref={sortRef} className="sort__popup">
+              <div className="sort__popup">
                  <ul>
                     {mappedSortType}
                  </ul>
