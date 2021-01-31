@@ -1,11 +1,11 @@
 import {
+   fetchPizzas,
    isError,
    isLoaded,
    isLoading,
    PizzaItemType,
    PizzasInitialState,
    pizzasReducer,
-   setItems
 } from './pizzas-reducer'
 
 let startState: PizzasInitialState
@@ -41,9 +41,7 @@ test('set pizzas array on  main page', () => {
       }
    ]
 
-   const action = setItems({items: items})
-
-   const endState = pizzasReducer(startState, action)
+   const endState = pizzasReducer(startState, fetchPizzas.fulfilled({items}, 'requestId', { category: 5, sortBy: 'name' }))
 
    expect(endState.items.length).toEqual(2)
 })

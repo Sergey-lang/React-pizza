@@ -1,4 +1,12 @@
-import {addPizzaToCart, CartInitialState, cartReducer, clearItems, minusItem, plusItem, removeItemsById} from './cart-reducer'
+import {
+   addToCart,
+   CartInitialState,
+   cartReducer,
+   clearItems,
+   minusItem,
+   plusItem,
+   removeItemsById
+} from './cart-reducer'
 import {PizzaItemType} from './pizzas-reducer'
 
 let startState: CartInitialState
@@ -58,7 +66,7 @@ test('add item to cart with index 0', () => {
       'rating': 4
    }
 
-   const action = addPizzaToCart({pizzaItem: newItem})
+   const action = addToCart.fulfilled({pizzaItem: newItem},'requestId',newItem)
 
    const endState = cartReducer(startState, action)
 
@@ -79,7 +87,7 @@ test('add new key for new type items,key 5 and 1 item', () => {
       'rating': 4
    }
 
-   const action = addPizzaToCart({pizzaItem: newItem})
+   const action = addToCart.fulfilled({pizzaItem: newItem},'requestId',newItem)
 
    const endState = cartReducer(startState, action)
 
@@ -101,7 +109,7 @@ test('total count in cart after added new item should be 4', () => {
       'rating': 4
    }
 
-   const action = addPizzaToCart({pizzaItem: newItem})
+   const action = addToCart.fulfilled({pizzaItem: newItem},'requestId',newItem)
 
    const endState = cartReducer(startState, action)
 
@@ -125,7 +133,7 @@ test('total price in cart after added new item should be 2100', () => {
       'rating': 4
    }
 
-   const action = addPizzaToCart({pizzaItem: newItem})
+   const action = addToCart.fulfilled({pizzaItem: newItem},'requestId',newItem)
 
    const endState = cartReducer(startState, action)
 

@@ -6,6 +6,11 @@ import {Header} from './u3-components/Header/Header'
 
 import './App.css'
 
+export const path = {
+    CART: '/cart',
+    HOME: '/'
+}
+
 export const App: React.FC = () => {
 
    return (
@@ -13,8 +18,8 @@ export const App: React.FC = () => {
           <div className="wrapper">
              <Header/>
              <div className="content">
-                <Route exact path='/' render={() => <Home/>}/>
-                <Route exact path='/cart' render={() => <Cart />}/>
+                <Route exact path={path.HOME} render={() => <Home/>}/>
+                <Route exact path={path.CART} render={() => <Cart />}/>
              </div>
           </div>
        </div>

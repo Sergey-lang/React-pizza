@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {HashRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {store} from './u6-redux/store'
 import {App} from './App'
@@ -8,12 +8,10 @@ import {App} from './App'
 import './u0-scss/app.scss'
 
 ReactDOM.render(
-    <React.StrictMode>
-       <HashRouter>
-          <Provider store={store}>
-             <App/>
-          </Provider>
-       </HashRouter>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Provider>,
     document.getElementById('root')
 )

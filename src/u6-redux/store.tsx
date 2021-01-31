@@ -10,8 +10,8 @@ const rootReducer = combineReducers({
    pizzas: pizzasReducer,
    cart: cartReducer,
 })
-
-export type AppStateType = ReturnType<typeof rootReducer>
+export type RootReducerType = typeof rootReducer
+export type AppStateType = ReturnType<RootReducerType>
 export default rootReducer
 
 export const store = configureStore({
@@ -19,10 +19,6 @@ export const store = configureStore({
    middleware: getDefaultMiddleware => getDefaultMiddleware()
        .prepend(thunkMiddleware)
 })
-
-//@ts-ignore
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-// export let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 
 

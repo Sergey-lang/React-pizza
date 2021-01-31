@@ -8,6 +8,7 @@ import {clearItems, ItemArray, minusItem, plusItem, removeItemsById} from '../u6
 import {CartItem} from '../u3-components/CartItem/CartItem'
 import {Button} from '../u3-components/Button/Button'
 import {EmptyCart} from './EmptyCart'
+import {path} from '../App';
 
 export const Cart: React.FC = () => {
 
@@ -112,7 +113,7 @@ export const Cart: React.FC = () => {
                                           strokeLinecap="round"
                                           strokeLinejoin="round"/>
                                  </svg>
-                                 <Link to='/'>
+                                 <Link to={path.HOME}>
                                     <span>Вернуться назад</span>
                                  </Link>
                               </Button>

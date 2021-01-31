@@ -6,7 +6,7 @@ import {fetchPizzas, PizzaItemType} from '../u6-redux/reducers/pizzas-reducer'
 import {Categories} from '../u3-components/Categories/Categories'
 import {FilterItemType, SortPopup} from '../u3-components/SortPopup/SortPopup'
 import {objForCart, PizzaBlock} from '../u3-components/PizzaBlock/PizzaBlock'
-import {addToCart} from '../u6-redux/reducers/cart-reducer'
+import {addToCart} from '../u6-redux/reducers/cart-reducer';
 
 export const Home: React.FC = (props) => {
    const dispatch = useDispatch()
@@ -16,7 +16,8 @@ export const Home: React.FC = (props) => {
    const cartItems = useSelector<AppStateType, any>(state => state.cart.items)
    const filters = useSelector<AppStateType, FiltersInitialState>(state => state.filters)
 
-   const addItemsToCart = React.useCallback((obj: objForCart) => dispatch(addToCart(obj)), [dispatch])
+   const addItemsToCart = React.useCallback((obj: objForCart) => dispatch(addToCart(obj))
+   , [dispatch])
 
    const selectCategory = React.useCallback((index: number | null) => dispatch(setCategory({catIndex: index}))
        , [dispatch])
