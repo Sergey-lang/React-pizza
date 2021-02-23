@@ -1,8 +1,7 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {PizzaItemType} from '../PizzaBlock/pizzas-reducer'
-import {objForCart} from '../PizzaBlock/PizzaBlock'
 import {map, reduce} from 'lodash';
-import {AppStateType} from '../../u6-redux/store';
+import {addToCart} from './cart-actions';
 
 export type ItemArray = {
     [key: string]: Array<PizzaItemType>
@@ -15,16 +14,6 @@ const initialState = {
 }
 
 export type CartInitialState = typeof initialState
-
-export const addToCart = createAsyncThunk('cart/addToCart', (pizzaItem: objForCart, thunkAPI) => {
-    const pizzas = (thunkAPI.getState() as AppStateType).pizzas.items;
-    const pizzaObj = pizzas && pizzas.find((obj: { id: number }) => obj.id === pizzaItem.id)
-    if (pizzaObj) {
-        return {pizzaItem: pizzaObj}
-    } else {
-        return {pizzaItem: {} as PizzaItemType}
-    }
-})
 
 const slice = createSlice({
     name: 'cart',

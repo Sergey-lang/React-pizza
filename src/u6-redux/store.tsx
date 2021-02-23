@@ -1,9 +1,11 @@
-import {combineReducers} from 'redux'
+import {ActionCreatorsMapObject, bindActionCreators, combineReducers} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {filtersReducer} from '../u3-components/SortPopup/filters-reducer'
 import {pizzasReducer} from '../u3-components/PizzaBlock/pizzas-reducer'
 import {cartReducer} from '../u3-components/CartItem/cart-reducer'
 import {configureStore} from '@reduxjs/toolkit'
+import {useDispatch} from 'react-redux';
+import {useMemo} from 'react';
 
 const rootReducer = combineReducers({
    filters: filtersReducer,
@@ -20,5 +22,17 @@ export const store = configureStore({
        .prepend(thunkMiddleware)
 })
 
+type AppDispatchType = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatchType>()
+
+export function useActions<T extends ActionCreatorsMapObject<any>>(actions:T) {
+   const dispatch = useAppDispatch()
+
+   const boundActions = useMemo(() =>{
+      return bindActionCreators(actions, dispatch)
+   }, [])
+
+   return boundActions
+}
 
 

@@ -1,5 +1,4 @@
 import {
-   fetchPizzas,
    isError,
    isLoaded,
    isLoading,
@@ -7,6 +6,7 @@ import {
    PizzasInitialState,
    pizzasReducer,
 } from './pizzas-reducer'
+import {fetchPizzas} from './pizzas-actions';
 
 let startState: PizzasInitialState
 beforeEach(() => {

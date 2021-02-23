@@ -1,5 +1,4 @@
 import {
-   addToCart,
    CartInitialState,
    cartReducer,
    clearItems,
@@ -8,6 +7,7 @@ import {
    removeItemsById
 } from './cart-reducer'
 import {PizzaItemType} from '../PizzaBlock/pizzas-reducer'
+import {addToCart} from './cart-actions';
 
 let startState: CartInitialState
 beforeEach(() => {
