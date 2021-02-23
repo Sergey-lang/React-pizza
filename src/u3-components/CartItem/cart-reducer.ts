@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {PizzaItemType} from './pizzas-reducer'
-import {objForCart} from '../../u3-components/PizzaBlock/PizzaBlock'
+import {PizzaItemType} from '../PizzaBlock/pizzas-reducer'
+import {objForCart} from '../PizzaBlock/PizzaBlock'
 import {map, reduce} from 'lodash';
-import {AppStateType} from '../store';
+import {AppStateType} from '../../u6-redux/store';
 
 export type ItemArray = {
     [key: string]: Array<PizzaItemType>

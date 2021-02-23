@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import {Button} from '../Button/Button'
-import {ItemArray} from '../../u6-redux/reducers/cart-reducer'
+import {ItemArray} from '../CartItem/cart-reducer'
 
 import './PizzaBlock.scss'
 

@@ -1,20 +1,22 @@
 import * as React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {FiltersInitialState, setCategory, setSortBy} from '../u6-redux/reducers/filters-reducer'
-import {AppStateType} from '../u6-redux/store'
-import {fetchPizzas, PizzaItemType} from '../u6-redux/reducers/pizzas-reducer'
+import {setCategory, setSortBy} from '../u3-components/SortPopup/filters-reducer'
+import {fetchPizzas} from '../u3-components/PizzaBlock/pizzas-reducer'
 import {Categories} from '../u3-components/Categories/Categories'
 import {FilterItemType, SortPopup} from '../u3-components/SortPopup/SortPopup'
 import {objForCart, PizzaBlock} from '../u3-components/PizzaBlock/PizzaBlock'
-import {addToCart} from '../u6-redux/reducers/cart-reducer';
+import {addToCart} from '../u3-components/CartItem/cart-reducer';
+import {cartSelectors} from '../u3-components/CartItem';
+import {pizzaSelectors} from '../u3-components/PizzaBlock';
+import {filterSelectors} from '../u3-components/SortPopup';
 
 export const Home: React.FC = (props) => {
    const dispatch = useDispatch()
 
-   const pizzasItems = useSelector<AppStateType, Array<PizzaItemType>>(state => state.pizzas.items)
-   const pizzaIsLoading = useSelector<AppStateType, boolean>(state => state.pizzas.isLoading)
-   const cartItems = useSelector<AppStateType, any>(state => state.cart.items)
-   const filters = useSelector<AppStateType, FiltersInitialState>(state => state.filters)
+   const pizzasItems = useSelector(pizzaSelectors.pizzasItemsSelectors)
+   const pizzaIsLoading = useSelector(pizzaSelectors.pizzaIsLoadingSelectors)
+   const cartItems = useSelector(cartSelectors.cartItemsSelectors)
+   const filters = useSelector(filterSelectors.filtersSelectors)
 
    const addItemsToCart = React.useCallback((obj: objForCart) => dispatch(addToCart(obj))
    , [dispatch])

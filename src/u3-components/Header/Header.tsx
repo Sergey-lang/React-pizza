@@ -5,11 +5,12 @@ import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {Button} from '../Button/Button'
 import {AppStateType} from '../../u6-redux/store'
+import {itemsCountSelectors, totalPriceSelectors} from '../CartItem/selectors';
 
 export const Header = () => {
 
-   const cartTotalPrice = useSelector<AppStateType, number>(state => state.cart.totalPrice)
-   const cartItemsCount = useSelector<AppStateType, number>(state => state.cart.itemsCount)
+   const cartTotalPrice = useSelector<AppStateType, number>(totalPriceSelectors)
+   const cartItemsCount = useSelector<AppStateType, number>(itemsCountSelectors)
 
    return (
        <div className="header">

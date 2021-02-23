@@ -2,21 +2,20 @@ import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {map} from 'lodash'
-
-import {AppStateType} from '../u6-redux/store'
-import {clearItems, ItemArray, minusItem, plusItem, removeItemsById} from '../u6-redux/reducers/cart-reducer'
+import {clearItems, minusItem, plusItem, removeItemsById} from '../u3-components/CartItem/cart-reducer'
 import {CartItem} from '../u3-components/CartItem/CartItem'
 import {Button} from '../u3-components/Button/Button'
 import {EmptyCart} from './EmptyCart'
 import {path} from '../App';
+import {cartSelectors} from '../u3-components/CartItem';
 
 export const Cart: React.FC = () => {
 
    const dispatch = useDispatch()
 
-   const cartItems = useSelector<AppStateType, ItemArray>(state => state.cart.items)
-   const totalPrice = useSelector<AppStateType, number>(state => state.cart.totalPrice)
-   const itemsCount = useSelector<AppStateType, number>(state => state.cart.itemsCount)
+   const cartItems = useSelector(cartSelectors.cartItemsSelectors)
+   const totalPrice = useSelector(cartSelectors.totalPriceSelectors)
+   const itemsCount = useSelector(cartSelectors.itemsCountSelectors)
 
    const onClickOrder = () => {
       console.log('ВАШ ЗАКАЗ', cartItems)

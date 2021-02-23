@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import axios from 'axios'
-import {FiltersInitialState} from './filters-reducer'
+import {FiltersInitialState} from '../SortPopup/filters-reducer'
 
 export type PizzaItemType = {
     id: number

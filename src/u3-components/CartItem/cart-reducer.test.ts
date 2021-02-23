@@ -7,7 +7,7 @@ import {
    plusItem,
    removeItemsById
 } from './cart-reducer'
-import {PizzaItemType} from './pizzas-reducer'
+import {PizzaItemType} from '../PizzaBlock/pizzas-reducer'
 
 let startState: CartInitialState
 beforeEach(() => {
