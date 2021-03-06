@@ -10,7 +10,7 @@ const initialState = {
 
 export type FiltersInitialState = typeof initialState
 
-const slice = createSlice({
+export const slice = createSlice({
    name: 'filters',
    initialState: initialState,
    reducers: {

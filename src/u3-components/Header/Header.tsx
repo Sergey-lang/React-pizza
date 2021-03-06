@@ -4,7 +4,7 @@ import logoSvg from '../../u1-assets/img/pizza-logo.svg'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {Button} from '../Button/Button'
-import {AppStateType} from '../../u6-redux/store'
+import {AppStateType} from '../../u6-app/store'
 import {itemsCountSelectors, totalPriceSelectors} from '../CartItem/selectors';
 
 export const Header = () => {

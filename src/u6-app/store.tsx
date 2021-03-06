@@ -12,6 +12,7 @@ const rootReducer = combineReducers({
    pizzas: pizzasReducer,
    cart: cartReducer,
 })
+
 export type RootReducerType = typeof rootReducer
 export type AppStateType = ReturnType<RootReducerType>
 export default rootReducer
@@ -22,13 +23,14 @@ export const store = configureStore({
        .prepend(thunkMiddleware)
 })
 
-type AppDispatchType = typeof store.dispatch
+export type AppDispatchType = typeof store.dispatch
+
 export const useAppDispatch = () => useDispatch<AppDispatchType>()
 
-export function useActions<T extends ActionCreatorsMapObject<any>>(actions:T) {
+export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
    const dispatch = useAppDispatch()
 
-   const boundActions = useMemo(() =>{
+   const boundActions = useMemo(() => {
       return bindActionCreators(actions, dispatch)
    }, [])
 

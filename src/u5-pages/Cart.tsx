@@ -2,12 +2,12 @@ import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {map} from 'lodash'
-import {clearItems, minusItem, plusItem, removeItemsById} from '../u3-components/CartItem/cart-reducer'
-import {CartItem} from '../u3-components/CartItem/CartItem'
+import {cartActions, CartItem} from '../u3-components/CartItem'
 import {Button} from '../u3-components/Button/Button'
 import {EmptyCart} from './EmptyCart'
-import {path} from '../App';
+import {path} from '../u6-app/App';
 import {cartSelectors} from '../u3-components/CartItem';
+import {useActions} from '../u6-app/store';
 
 export const Cart: React.FC = () => {
 
@@ -16,6 +16,8 @@ export const Cart: React.FC = () => {
    const cartItems = useSelector(cartSelectors.cartItemsSelectors)
    const totalPrice = useSelector(cartSelectors.totalPriceSelectors)
    const itemsCount = useSelector(cartSelectors.itemsCountSelectors)
+   const {clearItems, minusItem, plusItem, removeItemsById} = useActions(cartActions)
+
 
    const onClickOrder = () => {
       console.log('ВАШ ЗАКАЗ', cartItems)

@@ -1,32 +1,32 @@
 import * as React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {setCategory, setSortBy} from '../u3-components/SortPopup/filters-reducer'
-import {Categories} from '../u3-components/Categories/Categories'
-import {FilterItemType, SortPopup} from '../u3-components/SortPopup/SortPopup'
-import {objForCart, PizzaBlock} from '../u3-components/PizzaBlock/PizzaBlock'
+import {Categories} from '../u3-components/Categories'
+import {SortPopup} from '../u3-components/SortPopup'
+import {PizzaBlock} from '../u3-components/PizzaBlock'
 import {cartActions, cartSelectors} from '../u3-components/CartItem';
 import {pizzasActions, pizzaSelectors} from '../u3-components/PizzaBlock';
-import {filterSelectors} from '../u3-components/SortPopup';
-import {fetchPizzas} from '../u3-components/PizzaBlock/pizzas-actions';
-import {useActions} from '../u6-redux/store';
-import {addToCart} from '../u3-components/CartItem/cart-actions';
+import {filtersActions, filterSelectors} from '../u3-components/SortPopup';
+import {useActions} from '../u6-app/store';
+import {objForCart} from '../u3-components/PizzaBlock/PizzaBlock';
+import {FilterItemType} from '../u3-components/SortPopup/SortPopup';
 
 export const Home: React.FC = (props) => {
     const pizzasItems = useSelector(pizzaSelectors.pizzasItemsSelectors)
     const pizzaIsLoading = useSelector(pizzaSelectors.pizzaIsLoadingSelectors)
     const cartItems = useSelector(cartSelectors.cartItemsSelectors)
     const filters = useSelector(filterSelectors.filtersSelectors)
-    const {addToCart} = useActions(cartActions)
-    const {fetchPizzas} = useActions(pizzasActions)
+    const {addToCartTC} = useActions(cartActions)
+    const {fetchPizzasTC} = useActions(pizzasActions)
+    const {setCategory,setSortBy} = useActions(filtersActions)
     const dispatch = useDispatch()
 
-    const addItemsToCart = React.useCallback((obj: objForCart) => addToCart(obj)
+    const addItemsToCart = React.useCallback((obj: objForCart) => addToCartTC(obj)
         , [dispatch])
 
-    const selectCategory = React.useCallback((index: number | null) => dispatch(setCategory({catIndex: index}))
+    const selectCategory = React.useCallback((index: number | null) => setCategory({catIndex: index})
         , [dispatch])
 
-    const selectSort = React.useCallback((filterObj: FilterItemType) => dispatch(setSortBy({name: filterObj.value}))
+    const selectSort = React.useCallback((filterObj: FilterItemType) => setSortBy({name: filterObj.value})
         , [dispatch])
 
     const mappedPizza = pizzasItems && !pizzaIsLoading
@@ -38,7 +38,7 @@ export const Home: React.FC = (props) => {
         : [...Array(8).map((_, index) => <PizzaBlock key={index} isLoading={pizzaIsLoading}/>)]
 
     React.useEffect(() => {
-        fetchPizzas(filters)
+        fetchPizzasTC(filters)
     }, [dispatch, filters])
 
     React.useEffect(() => {

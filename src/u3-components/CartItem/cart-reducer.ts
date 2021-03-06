@@ -1,7 +1,8 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {PizzaItemType} from '../PizzaBlock/pizzas-reducer'
 import {map, reduce} from 'lodash';
-import {addToCart} from './cart-actions';
+import {AppStateType} from '../../u6-app/store';
+import {objForCart} from '../PizzaBlock/PizzaBlock';
 
 export type ItemArray = {
     [key: string]: Array<PizzaItemType>
@@ -13,9 +14,23 @@ const initialState = {
     itemsCount: 0,
 }
 
+const addToCartTC = createAsyncThunk('cart/addToCart', (pizzaItem: objForCart, thunkAPI) => {
+    const pizzas = (thunkAPI.getState() as AppStateType).pizzas.items;
+    const pizzaObj = pizzas && pizzas.find((obj: { id: number }) => obj.id === pizzaItem.id)
+    if (pizzaObj) {
+        return {pizzaItem: pizzaObj}
+    } else {
+        return {pizzaItem: {} as PizzaItemType}
+    }
+})
+
 export type CartInitialState = typeof initialState
 
-const slice = createSlice({
+export const asyncActions = {
+    addToCartTC
+}
+
+export const slice = createSlice({
     name: 'cart',
     initialState: {
         items: {} as ItemArray,
@@ -56,7 +71,7 @@ const slice = createSlice({
         },
     },
     extraReducers: builder => {
-        builder.addCase(addToCart.fulfilled, (state, action) => {
+        builder.addCase(addToCartTC.fulfilled, (state, action) => {
                 if (!state.items[action.payload.pizzaItem.id]) {
                     state.items[action.payload.pizzaItem.id] = []
                 }

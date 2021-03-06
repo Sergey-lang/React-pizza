@@ -1,10 +1,20 @@
 import * as pizzaSelectors from './selectors'
-import * as pizzasActions from './pizzas-actions'
+import {asyncActions as pizzasAsyncActions, slice as pizzasSlice} from './pizzas-reducer';
+import {PizzaBlock} from './PizzaBlock'
 
 export {
     pizzaSelectors
 }
 
+const pizzasActions = {
+    ...pizzasAsyncActions,
+    ...pizzasSlice.actions
+}
+
+const pizzasReducer = pizzasSlice.reducer
+
 export {
-    pizzasActions
+    pizzasActions,
+    pizzasReducer,
+    PizzaBlock
 }

@@ -2,7 +2,6 @@ import cartEmptyImage from '../u1-assets/img/empty-cart.png'
 import {Link} from 'react-router-dom'
 import * as React from 'react'
 
-
 export const EmptyCart: React.FC = () => {
    return (
        <div className="cart cart--empty">
