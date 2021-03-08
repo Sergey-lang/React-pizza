@@ -1,4 +1,4 @@
-import {AppStateType} from '../../u6-app/store';
+import {AppRootStateType} from '../../utils/types';
 
-export const pizzasItemsSelectors =(state: AppStateType) => state.pizzas.items
-export const pizzaIsLoadingSelectors =(state: AppStateType) => state.pizzas.isLoading
+export const pizzasItemsSelectors =(state: AppRootStateType) => state.pizzas.items
+export const pizzaIsLoadingSelectors =(state: AppRootStateType) => state.pizzas.isLoading

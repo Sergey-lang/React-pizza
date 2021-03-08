@@ -7,7 +7,7 @@ import {Button} from '../u3-components/Button/Button'
 import {EmptyCart} from './EmptyCart'
 import {path} from '../u6-app/App';
 import {cartSelectors} from '../u3-components/CartItem';
-import {useActions} from '../u6-app/store';
+import {useActions} from '../utils/redux-utils';
 
 export const Cart: React.FC = () => {
 

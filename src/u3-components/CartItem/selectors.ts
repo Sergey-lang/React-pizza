@@ -1,5 +1,5 @@
-import {AppStateType} from '../../u6-app/store';
+import {AppRootStateType} from '../../utils/types';
 
-export const cartItemsSelectors =(state: AppStateType) => state.cart.items
-export const totalPriceSelectors =(state: AppStateType) => state.cart.totalPrice
-export const itemsCountSelectors =(state: AppStateType) => state.cart.itemsCount
+export const cartItemsSelectors =(state: AppRootStateType) => state.cart.items
+export const totalPriceSelectors =(state: AppRootStateType) => state.cart.totalPrice
+export const itemsCountSelectors =(state: AppRootStateType) => state.cart.itemsCount

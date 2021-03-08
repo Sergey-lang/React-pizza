@@ -1,16 +1,15 @@
 import * as React from 'react'
-
 import logoSvg from '../../u1-assets/img/pizza-logo.svg'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {Button} from '../Button/Button'
-import {AppStateType} from '../../u6-app/store'
 import {itemsCountSelectors, totalPriceSelectors} from '../CartItem/selectors';
+import {AppRootStateType} from '../../utils/types';
 
 export const Header = () => {
 
-   const cartTotalPrice = useSelector<AppStateType, number>(totalPriceSelectors)
-   const cartItemsCount = useSelector<AppStateType, number>(itemsCountSelectors)
+   const cartTotalPrice = useSelector<AppRootStateType, number>(totalPriceSelectors)
+   const cartItemsCount = useSelector<AppRootStateType, number>(itemsCountSelectors)
 
    return (
        <div className="header">

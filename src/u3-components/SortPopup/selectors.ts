@@ -1,3 +1,3 @@
-import {AppStateType} from '../../u6-app/store';
+import {AppRootStateType} from '../../utils/types';
 
-export const filtersSelectors =(state: AppStateType) => state.filters
+export const filtersSelectors =(state: AppRootStateType) => state.filters
